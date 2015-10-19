@@ -14,4 +14,13 @@
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="word_points">pontos</string>
+    <string name="action_add">Adicionar</string>
+    <string name="action_open">Abrir</string>
+    <string name="action_close">Fechar</string>
+    <string name="players_menu_item">Jogadores</string>
+    <string name="rewards_menu_item">Lista de prêmios</string>
+    <string name="settings_menu_item">Configurações</string>
+    <string name="help_menu_item">Ajuda</string>
+    <string name="exit_menu_item">Sair</string>
 </resources>

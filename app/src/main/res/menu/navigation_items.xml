@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/players_item"
+            android:icon="@drawable/ic_person_black_24dp"
+            android:title="@string/players_menu_item" />
+        <item
+            android:id="@+id/rewards_item"
+            android:icon="@drawable/ic_format_list_numbered_black_24dp"
+            android:title="@string/rewards_menu_item" />
+        <item
+            android:id="@+id/settings_item"
+            android:icon="@drawable/ic_settings_black_24dp"
+            android:title="@string/settings_menu_item" />
+        <item
+            android:id="@+id/help_item"
+            android:icon="@drawable/ic_help_black_24dp"
+            android:title="@string/help_menu_item" />
+        <item
+            android:id="@+id/exit_item"
+            android:icon="@drawable/ic_exit_to_app_black_24dp"
+            android:title="@string/exit_menu_item" />
+    </group>
+
+</menu>
