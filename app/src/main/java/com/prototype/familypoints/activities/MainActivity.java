@@ -1,14 +1,11 @@
 package com.prototype.familypoints.activities;
 
-import android.animation.ValueAnimator;
 import android.content.res.Configuration;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -16,30 +13,35 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ListView;
 
-import com.prototype.familypoints.ListAdapters.PlayersCustomListAdapter;
 import com.prototype.familypoints.R;
-import com.prototype.familypoints.mock.PlayersMock;
-import com.prototype.familypoints.model.Player;
+import com.prototype.familypoints.fragments.NewPlayerFragment;
+import com.prototype.familypoints.fragments.PlayersFragment;
 
-import java.util.ArrayList;
-import java.util.List;
+public class MainActivity extends AppCompatActivity implements PlayersFragment.OnFragmentInteractionListener,
+        NewPlayerFragment.OnFragmentInteractionListener {
 
-public class PlayersActivity extends AppCompatActivity {
-
-    private ListView mPlayersListView;
-    private List<Player> mPlayersData;
-    private PlayersCustomListAdapter mPlayersCustomListAdapter;
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
     private ActionBarDrawerToggle mDrawerToggle;
     private Toolbar mToolbar;
+    private android.support.v4.app.FragmentManager mFragmentManager;
+    private Fragment mFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.drawer_layout);
+
+        mFragmentManager = getSupportFragmentManager();
+
+        if(savedInstanceState == null) {
+            mFragment = PlayersFragment.newInstance();
+            mFragmentManager
+                    .beginTransaction()
+                    .replace(R.id.main_container, mFragment)
+                    .commit();
+        }
 
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(mToolbar);
@@ -72,10 +74,6 @@ public class PlayersActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         mDrawerToggle.syncState();
 
-        mPlayersListView = (ListView)findViewById(R.id.playersList);
-        mockData();
-        mPlayersCustomListAdapter = new PlayersCustomListAdapter(mPlayersData, this);
-        mPlayersListView.setAdapter(mPlayersCustomListAdapter);
     }
 
     @Override
@@ -111,18 +109,21 @@ public class PlayersActivity extends AppCompatActivity {
         if (mDrawerToggle.onOptionsItemSelected(item)) {
             return true;
         }
+        switch (item.getItemId()) {
+            case R.id.action_add_player:
+                mFragment = NewPlayerFragment.newInstance();
+                mFragmentManager
+                        .beginTransaction()
+                        .replace(R.id.main_container, mFragment)
+                        .commit();
+        }
+
         return super.onOptionsItemSelected(item);
     }
 
-    private void mockData() {
-        mPlayersData = new ArrayList<>();
-        Bitmap bitmap;
-        RoundedBitmapDrawable roundedBitmapDrawable;
-        for(int i = 0; i < PlayersMock.DATA_MOCK_LIST_SIZE; i ++) {
-            bitmap = BitmapFactory.decodeResource(getResources(), PlayersMock.PICTURES[i]);
-            roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-            roundedBitmapDrawable.setCornerRadius(Math.min(roundedBitmapDrawable.getMinimumWidth(), roundedBitmapDrawable.getMinimumHeight()));
-            mPlayersData.add(new Player(PlayersMock.NAMES[i], i*100, roundedBitmapDrawable));
-        }
+    //TODO: Fragment
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
     }
 }

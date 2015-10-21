@@ -23,4 +23,9 @@
     <string name="settings_menu_item">Configurações</string>
     <string name="help_menu_item">Ajuda</string>
     <string name="exit_menu_item">Sair</string>
+    <string name="add_button">Adicionar</string>
+    <string name="name_of_player_label">Nome do jogador</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
