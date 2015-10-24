@@ -9,6 +9,8 @@ import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
 import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
@@ -48,19 +50,20 @@ public class PlayersFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_players, container, false);
-        mPlayersListView = (ListView) view.findViewById(R.id.playersList);
+        View mView = inflater.inflate(R.layout.fragment_players, container, false);
+        mPlayersListView = (ListView) mView.findViewById(R.id.playersList);
         mockData();
         mPlayersCustomListAdapter = new PlayersCustomListAdapter(mPlayersData, getActivity());
         mPlayersListView.setAdapter(mPlayersCustomListAdapter);
 
-        return view;
+        return mView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -68,6 +71,12 @@ public class PlayersFragment extends Fragment {
         if (mListener != null) {
             mListener.onFragmentInteraction(uri);
         }
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        menu.findItem(R.id.action_add_player).setEnabled(true);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override

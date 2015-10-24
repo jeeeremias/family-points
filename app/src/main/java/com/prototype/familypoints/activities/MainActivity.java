@@ -1,5 +1,6 @@
 package com.prototype.familypoints.activities;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -15,11 +16,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.prototype.familypoints.R;
-import com.prototype.familypoints.fragments.NewPlayerFragment;
 import com.prototype.familypoints.fragments.PlayersFragment;
 
-public class MainActivity extends AppCompatActivity implements PlayersFragment.OnFragmentInteractionListener,
-        NewPlayerFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements PlayersFragment.OnFragmentInteractionListener {
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
@@ -54,10 +53,9 @@ public class MainActivity extends AppCompatActivity implements PlayersFragment.O
                 mDrawerLayout.closeDrawers();
                 menuItem.setChecked(true);
                 switch (menuItem.getItemId()) {
-//                    case R.id.nav_home:
-//                        // TODO - Do something
-//                        break;
-//                    // TODO - Handle other items
+                    case R.id.players_item:
+                        startActivity(new Intent(MainActivity.this, DailyProgressActivity.class));
+                        break;
                 }
                 return true;
             }
@@ -78,7 +76,7 @@ public class MainActivity extends AppCompatActivity implements PlayersFragment.O
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.players_activity_actions, menu);
+        getMenuInflater().inflate(R.menu.action_bar_items, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -111,11 +109,8 @@ public class MainActivity extends AppCompatActivity implements PlayersFragment.O
         }
         switch (item.getItemId()) {
             case R.id.action_add_player:
-                mFragment = NewPlayerFragment.newInstance();
-                mFragmentManager
-                        .beginTransaction()
-                        .replace(R.id.main_container, mFragment)
-                        .commit();
+                startActivity(new Intent(this, NewPlayerActivity.class));
+                break;
         }
 
         return super.onOptionsItemSelected(item);
