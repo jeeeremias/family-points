@@ -1,17 +1,17 @@
 package com.prototype.familypoints.model;
 
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import java.io.Serializable;
 
-public class Player {
+public class Player implements Serializable {
 
     private String name;
     private int points;
-    private RoundedBitmapDrawable picture;
+    private int drawable;
 
-    public Player(String name, int points, RoundedBitmapDrawable picture) {
+    public Player(int id, String name, int points, int drawable) {
         this.name = name;
         this.points = points;
-        this.picture = picture;
+        this.drawable = drawable;
     }
 
     public String getName() {
@@ -30,11 +30,11 @@ public class Player {
         this.points = points;
     }
 
-    public RoundedBitmapDrawable getPicture() {
-        return picture;
+    public int getPicturePath() {
+        return drawable;
     }
 
-    public void setPicture(RoundedBitmapDrawable picture) {
-        this.picture = picture;
+    public void setPicturePath(int picturePath) {
+        this.drawable = picturePath;
     }
 }

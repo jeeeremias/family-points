@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/itemListPicture"
+        android:id="@+id/itemPlayersListPictureIV"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:paddingLeft="16dp"
@@ -16,21 +16,21 @@
         android:orientation="vertical"
         android:paddingBottom="20dp"
         android:paddingTop="20dp"
-        android:paddingRight="16dp">
+        android:paddingRight="16dp"
+        android:paddingLeft="16dp">
 
         <TextView
-            android:id="@+id/itemListName"
+            android:id="@+id/itemPlayersListNameTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="16dp"
             android:textSize="16sp"
             android:maxLines="1"/>
+
         <TextView
-            android:id="@+id/itemListPoints"
+            android:id="@+id/itemPlayersListPointsTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:paddingLeft="16dp"
             android:text="@string/word_points"
             android:maxLines="1" />
     </LinearLayout>

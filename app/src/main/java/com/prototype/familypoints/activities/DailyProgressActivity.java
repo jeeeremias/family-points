@@ -1,5 +1,6 @@
 package com.prototype.familypoints.activities;
 
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -11,15 +12,25 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.prototype.familypoints.ListAdapters.TasksCustomListAdapter;
 import com.prototype.familypoints.R;
+import com.prototype.familypoints.mock.Mock;
+import com.prototype.familypoints.model.Task;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DailyProgressActivity extends AppCompatActivity {
 
@@ -77,7 +88,6 @@ public class DailyProgressActivity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
             return 7;
         }
 
@@ -112,6 +122,12 @@ public class DailyProgressActivity extends AppCompatActivity {
          * fragment.
          */
         private static final String ARG_SECTION_NUMBER = "section_number";
+        private ListView mTasksListView;
+        private List<Task> mTasksData;
+        private TasksCustomListAdapter mTasksCustomListAdapter;
+        TextView tasksDoneTextView;
+        TextView tasksToDoTextView;
+        TextView tasksTotalTextView;
 
         /**
          * Returns a new instance of this fragment for the given section
@@ -131,10 +147,44 @@ public class DailyProgressActivity extends AppCompatActivity {
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
-            View rootView = inflater.inflate(R.layout.fragment_daily_progress, container, false);
-            TextView textView = (TextView) rootView.findViewById(R.id.section_label);
-            textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
-            return rootView;
+            final View mView = inflater.inflate(R.layout.fragment_daily_progress, container, false);
+            tasksDoneTextView = (TextView) mView.findViewById(R.id.numberTasksDoneTV);
+            tasksToDoTextView = (TextView) mView.findViewById(R.id.numberTasksToDoTV);
+            tasksTotalTextView = (TextView) mView.findViewById(R.id.numberTasksTotalTV);
+            mTasksListView = (ListView) mView.findViewById(R.id.tasksLV);
+            mockData();
+            mTasksCustomListAdapter = new TasksCustomListAdapter(mTasksData, getActivity(), this);
+            mTasksListView.setAdapter(mTasksCustomListAdapter);
+            updateNumbers();
+
+            mView.post(new Runnable() {
+                @Override
+                public void run() {
+                    LinearLayout tasksLinearLayout = (LinearLayout) mView.findViewById(R.id.numberTasksLL);
+                    LinearLayout tasksToDoLinearLayout = (LinearLayout) mView.findViewById(R.id.numberTasksToDoLL);
+                    LinearLayout tasksDoneLinearLayout = (LinearLayout) mView.findViewById(R.id.numberTasksDoneLL);
+                    LinearLayout tasksTotalLinearLayout = (LinearLayout) mView.findViewById(R.id.numberTasksTotalLL);
+                    int size = tasksLinearLayout.getWidth() / 3;
+                    tasksToDoLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(size, size));
+                    tasksDoneLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(size, size));
+                    tasksTotalLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(size, size));
+                }
+            });
+
+            return mView;
+        }
+
+        private void mockData() {
+            mTasksData = new ArrayList<>();
+            for(int i = 0; i < Mock.TASKS_DATA_MOCK_LIST_SIZE; i ++) {
+                mTasksData.add(new Task(Mock.TASKS_NAMES[i]));
+            }
+        }
+
+        public void updateNumbers() {
+            tasksDoneTextView.setText(String.valueOf(mTasksCustomListAdapter.getCheckedCount()));
+            tasksToDoTextView.setText(String.valueOf(mTasksCustomListAdapter.getCount() - mTasksCustomListAdapter.getCheckedCount()));
+            tasksTotalTextView.setText(String.valueOf(mTasksCustomListAdapter.getCount()));
         }
     }
 }

@@ -25,6 +25,12 @@
     <string name="exit_menu_item">Sair</string>
     <string name="add_button">Adicionar</string>
     <string name="name_of_player_label">Nome do jogador</string>
+    <string name="done_plural">concluidas</string>
+    <string name="to_do">a fazer</string>
+    <string name="total">total</string>
+    <string name="text_points">%1$s possui um total de %2$d pontos.</string>
+    <string name="rescue_reward">Resgatar prêmio</string>
+    <string name="go_to_daily_progress">Ver progresso diário</string>
 
 <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

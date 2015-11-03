@@ -56,6 +56,8 @@ public class MainActivity extends AppCompatActivity implements PlayersFragment.O
                     case R.id.players_item:
                         startActivity(new Intent(MainActivity.this, DailyProgressActivity.class));
                         break;
+                    case R.id.exit_item:
+                        finish();
                 }
                 return true;
             }

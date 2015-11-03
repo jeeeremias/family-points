@@ -17,7 +17,7 @@ import android.widget.ListView;
 
 import com.prototype.familypoints.ListAdapters.PlayersCustomListAdapter;
 import com.prototype.familypoints.R;
-import com.prototype.familypoints.mock.PlayersMock;
+import com.prototype.familypoints.mock.Mock;
 import com.prototype.familypoints.model.Player;
 
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class PlayersFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View mView = inflater.inflate(R.layout.fragment_players, container, false);
-        mPlayersListView = (ListView) mView.findViewById(R.id.playersList);
+        mPlayersListView = (ListView) mView.findViewById(R.id.playersLV);
         mockData();
         mPlayersCustomListAdapter = new PlayersCustomListAdapter(mPlayersData, getActivity());
         mPlayersListView.setAdapter(mPlayersCustomListAdapter);
@@ -113,13 +113,8 @@ public class PlayersFragment extends Fragment {
 
     private void mockData() {
         mPlayersData = new ArrayList<>();
-        Bitmap bitmap;
-        RoundedBitmapDrawable roundedBitmapDrawable;
-        for(int i = 0; i < PlayersMock.DATA_MOCK_LIST_SIZE; i ++) {
-            bitmap = BitmapFactory.decodeResource(getResources(), PlayersMock.PICTURES[i]);
-            roundedBitmapDrawable = RoundedBitmapDrawableFactory.create(getResources(), bitmap);
-            roundedBitmapDrawable.setCornerRadius(Math.min(roundedBitmapDrawable.getMinimumWidth(), roundedBitmapDrawable.getMinimumHeight()));
-            mPlayersData.add(new Player(PlayersMock.NAMES[i], i*100, roundedBitmapDrawable));
+        for(int i = 0; i < Mock.PLAYERS_DATA_MOCK_LIST_SIZE; i ++) {
+            mPlayersData.add(new Player(i, Mock.PLAYERS_NAMES[i], i*100, Mock.PLAYERS_PICTURES[i]));
         }
     }
 
