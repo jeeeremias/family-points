@@ -2,13 +2,9 @@ package com.prototype.familypoints.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -17,11 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import com.prototype.familypoints.ListAdapters.PlayersCustomListAdapter;
+import com.prototype.familypoints.ListAdapters.RewardsCustomListAdapter;
 import com.prototype.familypoints.R;
+import com.prototype.familypoints.activities.NewPlayerActivity;
 import com.prototype.familypoints.activities.NewRewardActivity;
 import com.prototype.familypoints.mock.Mock;
-import com.prototype.familypoints.model.Player;
+import com.prototype.familypoints.model.Reward;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,24 +26,24 @@ import java.util.List;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PlayersFragment.OnFragmentInteractionListener} interface
+ * {@link RewardsFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PlayersFragment#newInstance} factory method to
+ * Use the {@link RewardsFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PlayersFragment extends Fragment {
+public class RewardsFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
 
-    public static PlayersFragment newInstance() {
-        PlayersFragment fragment = new PlayersFragment();
+    private ListView mRewardsListView;
+    private List<Reward> mRewardsData;
+    private RewardsCustomListAdapter mRewardsCustomListAdapter;
+
+    public static RewardsFragment newInstance() {
+        RewardsFragment fragment = new RewardsFragment();
         return fragment;
     }
 
-    private ListView mPlayersListView;
-    private List<Player> mPlayersData;
-    private PlayersCustomListAdapter mPlayersCustomListAdapter;
-
-    public PlayersFragment() {
+    public RewardsFragment() {
         // Required empty public constructor
     }
 
@@ -60,20 +57,13 @@ public class PlayersFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View mView = inflater.inflate(R.layout.fragment_players, container, false);
-        mPlayersListView = (ListView) mView.findViewById(R.id.playersLV);
+        View mView = inflater.inflate(R.layout.fragment_rewards, container, false);
+        mRewardsListView = (ListView) mView.findViewById(R.id.rewardsLV);
         mockData();
-        mPlayersCustomListAdapter = new PlayersCustomListAdapter(mPlayersData, getActivity());
-        mPlayersListView.setAdapter(mPlayersCustomListAdapter);
+        RewardsCustomListAdapter mRewardsCustomListAdapter = new RewardsCustomListAdapter(mRewardsData, getActivity());
+        mRewardsListView.setAdapter(mRewardsCustomListAdapter);
 
         return mView;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
@@ -90,6 +80,13 @@ public class PlayersFragment extends Fragment {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    // TODO: Rename method, update argument and hook method into UI event
+    public void onButtonPressed(Uri uri) {
+        if (mListener != null) {
+            mListener.onFragmentInteraction(uri);
+        }
     }
 
     @Override
@@ -125,9 +122,9 @@ public class PlayersFragment extends Fragment {
     }
 
     private void mockData() {
-        mPlayersData = new ArrayList<>();
-        for(int i = 0; i < Mock.PLAYERS_DATA_MOCK_LIST_SIZE; i ++) {
-            mPlayersData.add(new Player(i, Mock.PLAYERS_NAMES[i], i*100, Mock.PLAYERS_PICTURES[i]));
+        mRewardsData = new ArrayList<>();
+        for(int i = 0; i < Mock.REWARDS_DATA_MOCK_LIST_SIZE; i ++) {
+            mRewardsData.add(new Reward(Mock.REWARDS_NAMES[i], i*100, R.drawable.gift));
         }
     }
 

@@ -1,16 +1,22 @@
 package com.prototype.familypoints.model;
 
-import java.io.Serializable;
-
-public class Player implements Serializable {
-
+public class Reward {
     private String name;
     private int points;
+    private String price;
     private int drawable;
 
-    public Player(int id, String name, int points, int drawable) {
+    public Reward(String name, int points, int drawable) {
         this.name = name;
         this.points = points;
+        this.drawable = drawable;
+    }
+
+    public int getDrawable() {
+        return drawable;
+    }
+
+    public void setDrawable(int drawable) {
         this.drawable = drawable;
     }
 
@@ -30,11 +36,11 @@ public class Player implements Serializable {
         this.points = points;
     }
 
-    public int getDrawable() {
-        return drawable;
+    public String getPrice() {
+        return price;
     }
 
-    public void setDrawable(int drawable) {
-        this.drawable = drawable;
+    public void setPrice(String price) {
+        this.price = price;
     }
 }

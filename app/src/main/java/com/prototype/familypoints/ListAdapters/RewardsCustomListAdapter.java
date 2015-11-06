@@ -15,19 +15,20 @@ import com.prototype.familypoints.R;
 import com.prototype.familypoints.activities.PlayerProfileActivity;
 import com.prototype.familypoints.async.AsyncPicturesMock;
 import com.prototype.familypoints.model.Player;
+import com.prototype.familypoints.model.Reward;
 import com.prototype.familypoints.util.KeyArgs;
 
 import java.util.List;
 
-public class PlayersCustomListAdapter implements ListAdapter {
+public class RewardsCustomListAdapter implements ListAdapter {
 
-    public PlayersCustomListAdapter(List<Player> mPlayers, Activity mContext){
+    public RewardsCustomListAdapter(List<Reward> mRewards, Activity mContext){
         this.mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        this.mPlayers = mPlayers;
+        this.mRewards = mRewards;
         this.mContext = mContext;
     }
 
-    private List<Player> mPlayers;
+    private List<Reward> mRewards;
     private Activity mContext;
     private LayoutInflater mInflater;
 
@@ -53,12 +54,12 @@ public class PlayersCustomListAdapter implements ListAdapter {
 
     @Override
     public int getCount() {
-        return mPlayers.size();
+        return mRewards.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mPlayers.get(position);
+        return mRewards.get(position);
     }
 
     @Override
@@ -76,21 +77,13 @@ public class PlayersCustomListAdapter implements ListAdapter {
         if(convertView == null) {
             convertView = mInflater.inflate(R.layout.two_line_avatar_list_item, null, true);
         }
-        final Player player = mPlayers.get(position);
+        final Reward reward = mRewards.get(position);
         ImageView picture = (ImageView) convertView.findViewById(R.id.itemListPictureIV);
         TextView name = (TextView) convertView.findViewById(R.id.itemListFirstTextTV);
         TextView points = (TextView) convertView.findViewById(R.id.itemListSecondTextTV);
-        name.setText(player.getName());
-        new AsyncPicturesMock(mContext.getResources(), picture, true).execute(player.getDrawable());
-        points.setText(player.getPoints() + " " + mContext.getString(R.string.word_points));
-        convertView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent mIntent = new Intent(mContext, PlayerProfileActivity.class);
-                mIntent.putExtra(KeyArgs.PLAYER_OBJECT, player);
-                mContext.startActivity(mIntent);
-            }
-        });
+        name.setText(reward.getName());
+        new AsyncPicturesMock(mContext.getResources(), picture, true).execute(reward.getDrawable());
+        points.setText(reward.getPoints() + " " + mContext.getString(R.string.word_points));
         return convertView;
     }
 
@@ -106,6 +99,6 @@ public class PlayersCustomListAdapter implements ListAdapter {
 
     @Override
     public boolean isEmpty() {
-        return mPlayers.isEmpty();
+        return mRewards.isEmpty();
     }
 }

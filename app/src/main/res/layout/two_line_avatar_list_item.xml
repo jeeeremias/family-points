@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/itemPlayersListPictureIV"
+        android:id="@+id/itemListPictureIV"
         android:layout_width="72dp"
         android:layout_height="72dp"
         android:paddingLeft="16dp"
@@ -20,18 +20,17 @@
         android:paddingLeft="16dp">
 
         <TextView
-            android:id="@+id/itemPlayersListNameTV"
+            android:id="@+id/itemListFirstTextTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:maxLines="1"/>
 
         <TextView
-            android:id="@+id/itemPlayersListPointsTV"
+            android:id="@+id/itemListSecondTextTV"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="14sp"
-            android:text="@string/word_points"
             android:maxLines="1" />
     </LinearLayout>
 

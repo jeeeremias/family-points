@@ -3,6 +3,8 @@ package com.prototype.familypoints.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,16 +22,25 @@ public class PlayerProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_profile);
         Intent mIntent = getIntent();
-        Player mPlayer = (Player) mIntent.getExtras().get(KeyArgs.PLAYER_OBJECT);
+        final Player mPlayer = (Player) mIntent.getExtras().get(KeyArgs.PLAYER_OBJECT);
 
 
         ImageView profilePhoto = (ImageView) findViewById(R.id.profile_photoIV);
         ImageView coverPhoto = (ImageView) findViewById(R.id.cover_photoIV);
         TextView textViewName = (TextView) findViewById(R.id.playerNameTV);
         TextView textViewPointsText = (TextView) findViewById(R.id.playerTextPointsTV);
+        Button dailyProgressButton = (Button) findViewById(R.id.dailyProgressB);
         textViewName.setText(mPlayer.getName());
         textViewPointsText.setText(String.format(getString(R.string.text_points), mPlayer.getName(), mPlayer.getPoints()));
-        new AsyncPicturesMock(getResources(), profilePhoto, true).execute(mPlayer.getPicturePath());
-        new AsyncPicturesMock(getResources(), coverPhoto, false).execute(mPlayer.getPicturePath());
+        dailyProgressButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent mIntent = new Intent(PlayerProfileActivity.this, DailyProgressActivity.class);
+                mIntent.putExtra(KeyArgs.PLAYER_OBJECT, mPlayer);
+                startActivity(mIntent);
+            }
+        });
+        new AsyncPicturesMock(getResources(), profilePhoto, true).execute(mPlayer.getDrawable());
+        new AsyncPicturesMock(getResources(), coverPhoto, false).execute(mPlayer.getDrawable());
     }
 }

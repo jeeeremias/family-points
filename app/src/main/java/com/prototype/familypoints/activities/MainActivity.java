@@ -17,8 +17,9 @@ import android.view.MenuItem;
 
 import com.prototype.familypoints.R;
 import com.prototype.familypoints.fragments.PlayersFragment;
+import com.prototype.familypoints.fragments.RewardsFragment;
 
-public class MainActivity extends AppCompatActivity implements PlayersFragment.OnFragmentInteractionListener {
+public class MainActivity extends AppCompatActivity implements PlayersFragment.OnFragmentInteractionListener, RewardsFragment.OnFragmentInteractionListener{
 
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
@@ -54,7 +55,18 @@ public class MainActivity extends AppCompatActivity implements PlayersFragment.O
                 menuItem.setChecked(true);
                 switch (menuItem.getItemId()) {
                     case R.id.players_item:
-                        startActivity(new Intent(MainActivity.this, DailyProgressActivity.class));
+                        mFragment = PlayersFragment.newInstance();
+                        mFragmentManager
+                                .beginTransaction()
+                                .replace(R.id.main_container, mFragment)
+                                .commit();
+                        break;
+                    case R.id.rewards_item:
+                        mFragment = RewardsFragment.newInstance();
+                        mFragmentManager
+                                .beginTransaction()
+                                .replace(R.id.main_container, mFragment)
+                                .commit();
                         break;
                     case R.id.exit_item:
                         finish();
@@ -102,20 +114,6 @@ public class MainActivity extends AppCompatActivity implements PlayersFragment.O
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         mDrawerToggle.onConfigurationChanged(newConfig);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
-        }
-        switch (item.getItemId()) {
-            case R.id.action_add_player:
-                startActivity(new Intent(this, NewPlayerActivity.class));
-                break;
-        }
-
-        return super.onOptionsItemSelected(item);
     }
 
     //TODO: Fragment

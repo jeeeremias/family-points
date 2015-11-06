@@ -1,5 +1,6 @@
 package com.prototype.familypoints.activities;
 
+import android.content.Intent;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
@@ -27,7 +28,9 @@ import android.widget.TextView;
 import com.prototype.familypoints.ListAdapters.TasksCustomListAdapter;
 import com.prototype.familypoints.R;
 import com.prototype.familypoints.mock.Mock;
+import com.prototype.familypoints.model.Player;
 import com.prototype.familypoints.model.Task;
+import com.prototype.familypoints.util.KeyArgs;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,10 +52,15 @@ public class DailyProgressActivity extends AppCompatActivity {
      */
     private ViewPager mViewPager;
 
+    private Player mPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_daily_progress);
+
+        Intent mIntent = getIntent();
+        mPlayer = (Player) mIntent.getExtras().get(KeyArgs.PLAYER_OBJECT);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -83,7 +91,7 @@ public class DailyProgressActivity extends AppCompatActivity {
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return PlaceholderFragment.newInstance(position + 1, mPlayer);
         }
 
         @Override
@@ -125,18 +133,19 @@ public class DailyProgressActivity extends AppCompatActivity {
         private ListView mTasksListView;
         private List<Task> mTasksData;
         private TasksCustomListAdapter mTasksCustomListAdapter;
-        TextView tasksDoneTextView;
-        TextView tasksToDoTextView;
-        TextView tasksTotalTextView;
+        private TextView tasksDoneTextView;
+        private TextView tasksToDoTextView;
+        private TextView tasksTotalTextView;
 
         /**
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static PlaceholderFragment newInstance(int sectionNumber) {
+        public static PlaceholderFragment newInstance(int sectionNumber, Player mPlayer) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             args.putInt(ARG_SECTION_NUMBER, sectionNumber);
+            args.putSerializable(KeyArgs.PLAYER_OBJECT, mPlayer);
             fragment.setArguments(args);
             return fragment;
         }
@@ -170,6 +179,10 @@ public class DailyProgressActivity extends AppCompatActivity {
                     tasksTotalLinearLayout.setLayoutParams(new LinearLayout.LayoutParams(size, size));
                 }
             });
+
+            Player mPlayer = (Player) getArguments().getSerializable(KeyArgs.PLAYER_OBJECT);
+            TextView name = (TextView) mView.findViewById(R.id.playerNameTV);
+            name.setText(mPlayer.getName());
 
             return mView;
         }

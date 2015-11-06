@@ -5,6 +5,7 @@ import com.prototype.familypoints.R;
 public class Mock {
     public static final int PLAYERS_DATA_MOCK_LIST_SIZE = 8;
     public static final int TASKS_DATA_MOCK_LIST_SIZE = 10;
+    public static final int REWARDS_DATA_MOCK_LIST_SIZE = 11;
 
     public static final String[] PLAYERS_NAMES = {
             "Marge Simpson",
@@ -14,7 +15,21 @@ public class Mock {
             "Milhouse Van Houten",
             "Nelson Muntz",
             "Ralph Wiggum",
-            "Big name testing the line cant break for big lines like that",
+            "Big name testing the line cant break for big lines like that"
+    };
+
+    public static final String[] REWARDS_NAMES = {
+            "PlayStation 4",
+            "Banco Imobiliário",
+            "Bicicleta",
+            "Bonecos Tartarugas Ninja",
+            "Carrinho HotWeels",
+            "Boneca Polly",
+            "50 reais",
+            "Mc Lanche Feliz",
+            "Casinha de boneca",
+            "Carrinho de estimação",
+            "Tablet"
     };
 
     public static final Integer[] PLAYERS_PICTURES = {
@@ -38,6 +53,6 @@ public class Mock {
             "Colocar ração para o Marley",
             "Cochilo da tarde",
             "Big name testing the line cant break for big lines like that",
-            "Tirar pó da estante",
+            "Tirar pó da estante"
     };
 }
