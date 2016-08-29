@@ -83,6 +83,7 @@ public class PlayersCustomListAdapter implements ListAdapter {
         name.setText(player.getName());
         new AsyncPicturesMock(mContext.getResources(), picture, true).execute(player.getDrawable());
         points.setText(player.getPoints() + " " + mContext.getString(R.string.word_points));
+        convertView.setAlpha(1);
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

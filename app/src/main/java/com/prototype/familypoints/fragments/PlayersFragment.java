@@ -19,6 +19,7 @@ import android.widget.ListView;
 
 import com.prototype.familypoints.ListAdapters.PlayersCustomListAdapter;
 import com.prototype.familypoints.R;
+import com.prototype.familypoints.activities.NewPlayerActivity;
 import com.prototype.familypoints.activities.NewRewardActivity;
 import com.prototype.familypoints.mock.Mock;
 import com.prototype.familypoints.model.Player;
@@ -86,7 +87,7 @@ public class PlayersFragment extends Fragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_add:
-                startActivity(new Intent(getActivity(), NewRewardActivity.class));
+                startActivity(new Intent(getActivity(), NewPlayerActivity.class));
                 break;
         }
         return super.onOptionsItemSelected(item);
